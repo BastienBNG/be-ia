@@ -1,0 +1,65 @@
+[
+  {
+    "Identity": {
+      "Athlete_ID": 101,
+      "Sport": "football",
+      "Prenom": "John",
+      "FamilyName": "Doe",
+      "Birth_Date": "1995/03/22",
+      "Sex": "M",
+      "Taille": 180
+    },
+    "Sport": {
+      "Sport_ID": 201,
+      "Athlete_ID": 101,
+      "Date_of_last_competition": "2022/02/05",
+      "Date_of_last_training": "2022/02/10",
+      "Muscle_used_in_the_last_workout": "Jambe",
+      "Recovery_status": 7,
+      "training_frequency_week":2
+    },
+    "Self_evaluation": {
+      "Athlete_ID": 101,
+      "Sleep": 1,
+      "General_tiredness": 10,
+      "Aches_pains": 10,
+      "Mood_stress": 0,
+      "Weight": 75
+    },
+    "Injuries": {
+      "Athlete_ID": 101,
+      "Date": "2020/02/15",
+      "Position": "Jambe",
+      "Intensity": 6,
+      "injury_status": 30
+    },
+    "Staff": {
+      "Staff_ID": 301,
+      "Name": "Julia",
+      "FamilyName": "Smith",
+      "Speciality": "physiotherapist",
+      "Phone_number": 123456789,
+      "email": "julia.smith@gmail.com",
+      "athlete_id": "101"
+    },
+    "Training_stat": {
+      "Athlete_ID": 101,
+      "Title": "Interval training",
+      "Description": "High intensity interval training for 30 minutes",
+      "Date": "2022/02/12",
+      "Duration_time": 5,
+      "Intensity_of_last_training": 4
+    },
+    "Advice": {
+      "Staff_ID": 301,
+      "Athlete_ID": 101,
+      "Date": "2022/02/15",
+      "Advice": "Rest for a few days and apply ice to the injured area."
+    },
+    "Score": {
+      "Athlete_ID": 101,
+      "Score": 75,
+      "Date": "2022/02/14"
+    }
+  }]
+  

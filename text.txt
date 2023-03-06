@@ -1,0 +1,197 @@
+CREATE TABLE Identity (
+
+Athlete_ID INTEGER INTEGER PRIMARY KEY,
+
+Sport string NOT NULL ,
+
+Prenom string NOT NULL ,
+
+FamilyName string NOT NULL ,
+
+Birth_Date date NOT NULL ,
+
+Sex string NOT NULL ,
+
+Taille int NOT NULL
+
+);
+
+
+
+
+
+CREATE TABLE Sport (
+
+Sport_ID INTEGER INTEGER PRIMARY KEY,
+
+Athlete_ID int NOT NULL ,
+
+Date_of_last_competition date NOT NULL ,
+
+Date_of_last_training date NOT NULL ,
+
+Muscle_used_in_the_last_workout string NOT NULL ,
+
+Recovery_status string NOT NULL
+
+-- frequence /semaine
+
+);
+
+
+
+CREATE TABLE Self_evaluation (
+
+Athlete_ID int NOT NULL ,
+
+Sleep string NOT NULL ,
+
+General_tiredness string NOT NULL ,
+
+Aches_pains string NOT NULL ,
+
+Mood_stress string NOT NULL ,
+
+Weight int NOT NULL
+
+);
+
+
+
+CREATE TABLE Injuries (
+
+Athlete_ID int NOT NULL ,
+
+Date date NOT NULL ,
+
+Position string NOT NULL ,
+
+Intensity string NOT NULL
+
+);
+
+
+
+CREATE TABLE Staff (
+
+Staff_ID int NOT NULL ,
+
+Name string NOT NULL ,
+
+FamilyName string NOT NULL ,
+
+Speciality string NOT NULL ,
+
+Phone_number int NOT NULL ,
+
+email string NOT NULL ,
+
+athlete_id string,
+
+PRIMARY KEY (
+
+Staff_ID
+
+)
+
+);
+
+
+
+CREATE TABLE Training_stat (
+
+Athlete_ID int NOT NULL ,
+
+Title string NOT NULL ,
+
+Description string NOT NULL ,
+
+Date date NOT NULL ,
+
+Duration_time string NOT NULL ,
+
+Intensity_of_last_training int NOT NULL
+
+--frequence
+
+);
+
+
+
+CREATE TABLE Advice (
+
+Staff_ID int NOT NULL ,
+
+Athlete_ID int NOT NULL ,
+
+Date date NOT NULL ,
+
+Advice string NOT NULL
+
+);
+
+
+
+CREATE TABLE Score (
+
+Athlete_ID int NOT NULL ,
+
+Score int NOT NULL ,
+
+Date date NOT NULL
+
+);
+
+
+voici une entrée json pour un entrainement d'une ia python. Creer d'autre profil tel que : -Plus la date de la derniere competition est éloigné plus le score est bas -Plus la date du dernier entrainement est éloigné plus le score est élévé -Si le muscle utilisé dans le last workout est le meme que celui dans les injuries alors le score augmente et aussi cela tien en compte l'intenisty de l'injury et la date -Plus le sommeil est proche de 10 plus le score diminue -Plus les autres parametres de self evaluation sont proche de10 plus le score augmente -Plus les training stat date est proche et que la duration time est longue et que l intenisty est proche de 10 alors le score augmente :[
+  {
+      "Identity":{
+          "Birth_Date":"1996/08/08",
+          "Sex":"M",
+          "Taille": 177
+
+      },
+
+      "Sport": {
+        "Date_of_last_competition":"2023/08/08",
+        "Date_of_last_training":"2023/08/08",
+        "Muscle_used_in_the_last_workout": "jambe",
+        "Recovery_status": 2 ,
+        "training_frequency_week":3
+    },
+
+
+      "Self_evaluation": {
+          "Sleep": 7,
+          "General_tiredness": 7,
+          "Aches_pains": 8,
+          "Mood_stress": 9,
+          "Weight": 65
+      },
+
+      "Injuries": {
+
+        "Date": "2023/08/08",
+        "Position": "jambe",
+        "Intensity": 8
+
+
+      },
+
+      "Training_stat": {
+
+        "Date": "2023/08/08",
+        "Duration_time": 3,
+        "Intensity_of_last_training": 8
+
+
+      },
+
+      "Score": 90
+     
+  }
+
+
+[{'Identity': '{"Athlete_ID": 1, "Sport": "Cyclisme", "Prenom": "Jean", "FamilyName": "Bernard", "Birth_Date": "1995/03/02", "Sex": "M", "Taille": 180}', 'Sport': '{"Sport_ID": null, "Athlete_ID": 1, "Date_of_last_competition": "2023/05/20", "Date_of_last_training": "2023/05/20", "Muscle_used_in_the_last_workout": "Jambe", "Recovery_status": 2, "frequence_training_week": 3}', 'Self_evaluation': '{"Athlete_ID": 1, "Sleep": 7, "General_tiredness": 0, "Aches_pains": "Jambe", "Mood_stress": 2, "Weight": 89}', 'Injuries': '{"Athlete_ID": 1, "Date": "2023/05/20", "Position": "Genoux", "Intensity": 2, "Injury_status": 80}', 'Training_stat': '{"Athlete_ID": 1, "Title": "Cardio", "Description": "Entrainement de course", "Date": "2023/05/20", "Duration_time": "2h", "Intensity_of_last_training": 4}'}]
+
+
