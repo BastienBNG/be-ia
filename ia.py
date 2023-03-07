@@ -1,12 +1,13 @@
 import json
 from sklearn.linear_model import LinearRegression
 from sklearn.neural_network import MLPClassifier
+from sklearn.ensemble import RandomForestClassifier
 from sklearn.preprocessing import LabelEncoder
 from datetime import datetime
 import requests
 from flask import Flask, request
-import pandas as pd
-from pandas import json_normalize
+
+
 
 app = Flask(__name__)
 
@@ -99,14 +100,15 @@ def ia():
     print(y_pred)
 
     athlete_id = identity_dict["Athlete_ID"]
-    score = y_pred[0]
+    score = int(y_pred[0])
+    
 
     json_pred = {
         "Athlete_ID": athlete_id,
         "Score": score
     }
     print(json_pred)
-    url = 'http://127.0.0.1:8080/score'
+    url = 'https://0d84-92-184-102-148.eu.ngrok.io/score'
     headers = {'Content-type': 'application/json'}
     response = requests.post(url, json=json_pred, headers=headers)
 
@@ -114,4 +116,4 @@ def ia():
     return 'IA success'
 
 if __name__ == '__main__':
-    app.run(port=2000)
+    app.run('0.0.0.0', 2000)
