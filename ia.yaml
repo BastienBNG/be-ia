@@ -29,7 +29,7 @@ spec:
     spec:
       containers:
       - name:  ia
-        image: bastienbng/be-ia:1.0
+        image: bastienbng/be-ia:1.3
         ports:
         - containerPort: 2000
 

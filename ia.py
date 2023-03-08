@@ -6,6 +6,7 @@ from sklearn.preprocessing import LabelEncoder
 from datetime import datetime
 import requests
 from flask import Flask, request
+from sklearn.metrics import mean_squared_error, r2_score
 
 
 
@@ -30,7 +31,12 @@ def ia():
         # Retourner le nombre d'années arrondi à deux décimales
         return round(delta_years, 2)
 
-
+    def string_to_int(string):
+        table = {'M': 1, 'F': 1, 'Jambe': 20, 'Bras': 3, 'Abdominaux': 5,'Poignet': 4,'Genoux' : 17, 'Head': 5,'Belly':8,'HandL':6,'HandR':6,'FootL':18,'FootR':18,'LegL':14,'LegR':14,'HarmL':8,'HarmR':8,'ShoulderL':5,'ShoulderR':5,'Mind':10}
+        if string in table:
+            return table[string]
+        else:
+            print("La chaîne n'a pas de valeur associée.")
 
 
     def fit_label_encoder(data):
@@ -59,10 +65,10 @@ def ia():
     y_train = []
     for athlete in data:
         # Extraire les caractéristiques pertinentes pour le calcul de l'indice de risque
-        features = [years_since(athlete['Identity']['Birth_Date']), string_to_features(athlete['Identity']['Sex'], encoder), athlete['Identity']['Taille'],
-                    years_since(athlete['Sport']['Date_of_last_competition']), years_since(athlete['Sport']['Date_of_last_training']), string_to_features(athlete['Sport']['Muscle_used_in_the_last_workout'], encoder), athlete['Sport']['Recovery_status'], athlete['Sport']['training_frequency_week'],
+        features = [years_since(athlete['Identity']['Birth_Date']), string_to_int(athlete['Identity']['Sex']), athlete['Identity']['Taille'],
+                    years_since(athlete['Sport']['Date_of_last_competition']), years_since(athlete['Sport']['Date_of_last_training']), string_to_int(athlete['Sport']['Muscle_used_in_the_last_workout']), athlete['Sport']['Recovery_status'], athlete['Sport']['training_frequency_week'],
                     athlete['Self_evaluation']['Sleep'], athlete['Self_evaluation']['General_tiredness'], athlete['Self_evaluation']['Aches_pains'], athlete['Self_evaluation']['Mood_stress'], athlete['Self_evaluation']['Weight'],
-                    years_since(athlete['Injuries']['Date']), string_to_features(athlete['Injuries']['Position'], encoder), athlete['Injuries']['Intensity'],
+                    years_since(athlete['Injuries']['Date']), string_to_int(athlete['Injuries']['Position']), athlete['Injuries']['Intensity'],
                     years_since(athlete['Training_stat']['Date']), athlete['Training_stat']['Duration_time'], athlete['Training_stat']['Intensity_of_last_training']]
         # Ajouter les caractéristiques et la cible à leur liste respective
         X_train.append(features)
@@ -83,10 +89,10 @@ def ia():
     # Extraire les caractéristiques des données de test
     X_test = []
     for athlete in test_data:
-        features = [years_since(identity_dict['Birth_Date']), string_to_features(identity_dict['Sex'], encoder), identity_dict['Taille'],
-                    years_since(sport_dict['Date_of_last_competition']), years_since(sport_dict['Date_of_last_training']), string_to_features(sport_dict['Muscle_used_in_the_last_workout'], encoder), sport_dict['Recovery_status'], sport_dict['frequence_training_week'],
+        features = [years_since(identity_dict['Birth_Date']), string_to_int(identity_dict['Sex']), identity_dict['Taille'],
+                    years_since(sport_dict['Date_of_last_competition']), years_since(sport_dict['Date_of_last_training']), string_to_int(sport_dict['Muscle_used_in_the_last_workout']), sport_dict['Recovery_status'], sport_dict['frequence_training_week'],
                     self_eval_dict['Sleep'], self_eval_dict['General_tiredness'], self_eval_dict['Aches_pains'], self_eval_dict['Mood_stress'], self_eval_dict['Weight'],
-                    years_since(injuries_dict['Date']), string_to_features(injuries_dict['Position'], encoder), injuries_dict['Intensity'],
+                    years_since(injuries_dict['Date']), string_to_int(injuries_dict['Position']), injuries_dict['Intensity'],
                     years_since(training_stat_dict['Date']), (training_stat_dict['Duration_time']//60), training_stat_dict['Intensity_of_last_training']]
         print(features)
         X_test.append(features)
@@ -95,6 +101,7 @@ def ia():
 
     # Prédire les valeurs cibles des données de test
     y_pred = model.predict(X_test)
+    
 
     # Imprimer les prédictions
     print(y_pred)
